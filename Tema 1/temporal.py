@@ -13,9 +13,10 @@ import gym
 
 #____________________________________
 #otros ambientes
-#enviroment = gym.make("BipedalWalker-v3")
-
-enviroment = gym.make("SpaceInvaders-v0")
+#LIBRERIA BOX2D
+enviroment = gym.make("BipedalWalker-v3")
+#LIBRERIA ATARI---- tiene confluctos
+#enviroment = gym.make("SpaceInvaders-v0")
 
 
 
@@ -26,8 +27,10 @@ enviroment.reset()
 for _ in range(2000):
     #CREAMOS EL RENDER DE EL AMBIENTE 
     enviroment.render()
-    #HACEMOS SE TOME DECISIONES ALEATORIAS DE TODAS LAS POSIBLES 
+    #HACEMOS que TOME DECISIONES ALEATORIAS DE TODAS LAS POSIBLES QUE EN ESTE CASO
+    #ES UN ESPACIO ALEATORIO
     enviroment.step(enviroment.action_space.sample())
 
 enviroment.close
     
+#LOS CALCULOS SE REALIZARAN SOBRE LA GPU
