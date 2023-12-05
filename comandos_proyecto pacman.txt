@@ -1,0 +1,12 @@
+Proyecto PACMAN-inteligente (github)
+
+enviroment python2
+
+desde consola
+python gridworld.py -h (para ver todo lo que se puede modificar del proyecto)
+
+PARA CAMBIAR LOS VALORES DE ENTRENAMIENTO
+
+python gridworld.py -d 0.9 -r 0.0 -k 18 -a q (para q learning) -s 1.0  
+
+python gridworld.py -d 0.9 -r 0.0 -k 18 -a q -s 1.0 
