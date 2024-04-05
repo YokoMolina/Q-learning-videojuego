@@ -1,0 +1,57 @@
+\documentclass{TIC_FC_EPN}
+
+    
+\begin{document}
+    
+    \titulotic{NOMBRE DEL PROYECTO EN EL QUE SE DESARROLLA EL TRABAJO DE INTEGRACIÓN CURRICULAR\\\vspace{0.3cm}NOMBRE DEL COMPONENTE}
+    % Tanto el "Nombre del Proyecto" como el "Nombre del Componente" son los que se encuentran en el Proyecto de Trabajo de Integración Curricular presentado por los profesores a la CPGIC
+    \profesion{Título profesional a obtener}
+    \estudiante{Nombres y Apellidos estudiante}
+    \correoestudiante{\url{usuario@dominio}}
+    \director{Nombres y Apellidos director}
+    \correodirector{\url{usuario@dominio}}
+    \fecha{DMQ, mes año}
+    
+    \pagestyle{empty}
+    % Portada y documentos iniciales
+    \portada
+    \certificaciones
+    \declaracionautoria
+    \begin{resumen}
+        (Máximo 250 palabras)
+        
+    \vspace{0.3cm}\noindent\textbf{\textit{Palabras clave:}} palabra1, palabra2, palabra3,$\ldots$, palabra6.
+    
+    \end{resumen}
+    
+    \begin{resumenEng}
+        (Máximo 250 palabras)
+        
+    \vspace{0.3cm}\noindent\textbf{\textit{Keywords:}} palabra1, palabra2, palabra3,$\ldots$, palabra6.
+    
+    \end{resumenEng}
+    
+    %\setcounter{page}{1}
+    \tableofcontents
+    \thispagestyle{empty}
+    \listoffigures % En caso de no tener figuras, comentar esta línea
+    \thispagestyle{empty}
+    \newpage
+     
+     % Contenido
+     \setcounter{page}{1}
+     \include{Capitulos-Anexos/cap-01}
+     \include{Capitulos-Anexos/cap-02}
+     \include{Capitulos-Anexos/cap-03}
+     
+     % Anexos
+     \appendix
+     \include{Capitulos-Anexos/anexo-01}
+    
+    % Bibliografía
+    \renewcommand\bibname{Referencias bibliográficas}
+    \bibliographystyle{plain}
+    \addcontentsline{toc}{chapter}{Bibliografía}
+    \bibliography{referencias-tic}
+
+\end{document}
