@@ -22,7 +22,9 @@ class QLearner (object):
 
         self.action_shape = enviroment.action_space.n
         self.Q = np.zeros((self.obs_bins+1,self.obs_bins+1, self.action_shape))
-        # amtriz de 31x31x3
+        # amtriz de 31x31x3 # posicion , velocidad , accion {0.1.2}
+        # las discretizacion tiene sis limitaciones pues puede no saber que esta pasando en cierto estado pues no es tan fina la division, 
+        # como cerse en un presipisio
         self.alpha = ALPHA
         self.gamma = GAMMA
         self.epsilon = 1.0 #valor que se va incrementando si sobrepasa el epsiolon_min
@@ -47,16 +49,18 @@ class QLearner (object):
             # con proba epsilon elegimos al azar
     def learn(self, obs, action, reward, next_obs):
         # implementación de la ecuacion q-learner
+        
         discrete_obs = self.discretize(obs)
         discrete_next_obs = self.discretize(next_obs)
         td_target = reward + self.gamma * np.max(self.Q[discrete_next_obs])
+        # diferencial temporal
         td_error = td_target -self.Q[discrete_obs][action]
         self.Q[discrete_obs][action] += self.alpha*td_error
 
 ## Metodo pare entrenas a nuestro agente
         
 def train(agent, enviroment):
-            best_reward = -float("inf")
+            best_reward = -float("inf") 
             for episode in range(MAX_NUM_EPISODE):
                 done = False
                 obs = enviroment.reset()
@@ -89,6 +93,7 @@ def test(agent, enviroment, policy):
 # almacenar  CADA ENTRENAMOIENTO
 
 if __name__ == "__main__":
+    #enviroment = gym.make("LunarLander-v2")
     enviroment = gym.make("MountainCar-v0")
     agent = QLearner(enviroment)
     learned_policy = train(agent, enviroment)
