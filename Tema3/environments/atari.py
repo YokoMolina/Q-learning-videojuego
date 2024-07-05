@@ -247,8 +247,8 @@ class LazyFrames(object):
         return self._force()[i]
     
 
-#if __name__ == "__main__":
-#    games_list = get_games_list()
-#    print("Lista de juegos disponibles en Atari:")
-#    for game in games_list:
-#        print(game)
+if __name__ == "__main__":
+    games_list = get_games_list()
+    print("Lista de juegos disponibles en Atari:")
+    for game in games_list:
+        print(game)

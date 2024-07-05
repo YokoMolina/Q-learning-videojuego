@@ -1,5 +1,12 @@
 
+# life esta viviendo en el entorno ... entrenando
+# game cuando ya esta jugando con todo lo que aprendió --test
+# se puede ver los resultados en tensorboard y se ñpuede comparar 
+# los resultados del entrenamosnto con los de --test que ya es poner en prectica todo lo aprendido
 
+
+
+# para renderizar --render 
 import torch
 import numpy as np
 import random
@@ -344,10 +351,11 @@ if __name__ == "__main__":
                     num_improved_episodes_before_checkpoint = 0
                 print("\n Episodio #{} finalizado con {} iteraciones. Con {} estados: recompensa = {}, recompensa media = {:.2}, mejor recompensa = {}".format(episode, step+1, reward_type, total_reward, np.mean(episode_rewards), agent.best_reward))
 
-                writer.add_scalar("main/ep_reward", total_reward, global_step_num)
+                writer.add_scalar("main/ep_total_reward", total_reward, global_step_num)
                 writer.add_scalar("main/mean_ep_reward", np.mean(episode_rewards), global_step_num)
                 writer.add_scalar("main/max_ep_reward", agent.best_mean_reward, global_step_num)
-                
+                #writer.add_scalar("main/total_reward", agent.best_mean_reward, global_step_num)
+
                 if agent.memory.get_size() >= 2*agent.params["replay_start_size"] and not args.test:
                     agent.replay_experience()
                 break
