@@ -1,4 +1,4 @@
-# environment.py
+# env.py
 # --------------
 # Licensing Information:  You are free to use or extend these projects for
 # educational purposes provided that (1) you do not distribute or publish
@@ -14,7 +14,7 @@
 
 #!/usr/bin/python
 
-class Environment:
+class env:
 
     def getCurrentState(self):
         """
@@ -34,7 +34,7 @@ class Environment:
     def doAction(self, action):
         """
           Performs the given action in the current
-          environment state and updates the enviornment.
+          env state and updates the enviornment.
 
           Returns a (reward, nextState) pair
         """

@@ -7,7 +7,7 @@ from networkreader import NetworkReader
 
 import Experiment
 import ActionFunctions
-import Environment
+import env
 
 from NFQIteration import NFQIteration
 from RLObjects import Posicion, Accion, Estado
@@ -176,7 +176,7 @@ if aprender:
 
                 # Guardo la muestra (s, a, s', c)
                 # (c = costo de la transicion <s,a,s'>)
-                costo = Environment.Costo(estadoSiguiente)
+                costo = env.Costo(estadoSiguiente)
                 muestra = (estado, accion, estadoSiguiente, costo)
                 transitionSamples.add(muestra)
                 muestrasTomadas = muestrasTomadas + 1

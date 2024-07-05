@@ -36,7 +36,7 @@ class ParamsManager(object):
 
 if __name__== "__main__":
     print("Porbando ")
-    param_file = "parameters.json"
+    param_file = "../parameters.json"
     manager = ParamsManager(param_file)
 
     agent_params = manager.get_agent_params()

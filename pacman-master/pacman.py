@@ -17,7 +17,7 @@ Pacman.py holds the logic for the classic pacman game along with the main
 code to run a game.  This file is divided into three sections:
 
   (i)  Your interface to the pacman world:
-          Pacman is a complex environment.  You probably don't want to
+          Pacman is a complex env.  You probably don't want to
           read through all of the code we wrote to make the game runs
           correctly.  This section contains the parts of the code
           that you will need to understand in order to complete the
@@ -26,7 +26,7 @@ code to run a game.  This file is divided into three sections:
 
   (ii)  The hidden secrets of pacman:
           This section contains all of the logic code that the pacman
-          environment uses to decide who can move where, who dies when
+          env uses to decide who can move where, who dies when
           things collide, etc.  You shouldn't need to read this section
           of code, but you can if you want.
 
@@ -340,7 +340,7 @@ class ClassicGameRules:
 
 class PacmanRules:
     """
-    These functions govern how pacman interacts with his environment under
+    These functions govern how pacman interacts with his env under
     the classic game rules.
     """
     PACMAN_SPEED=1
@@ -400,7 +400,7 @@ class PacmanRules:
 
 class GhostRules:
     """
-    These functions dictate how ghosts interact with their environment.
+    These functions dictate how ghosts interact with their env.
     """
     GHOST_SPEED=1.0
     

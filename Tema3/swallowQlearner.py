@@ -16,12 +16,12 @@ STEPS_PER_EPISODE = 30
 
 
 class SwallowQLearner (object):
-    def __init__(self, environment, learning_rate = 0.005, gamma = 0.98):
+    def __init__(self, env, learning_rate = 0.005, gamma = 0.98):
         #inicialicemos los valores del objeto self
         self.learning_rate = learning_rate # podemos guardar el dato
-        self.obs_shape = environment.observation_space.shape
+        self.obs_shape = env.observation_space.shape
         
-        self.action_shape = environment.action_space.n
+        self.action_shape = env.action_space.n
 
         low_act = -np.inf
         high_act = np.inf
@@ -162,23 +162,23 @@ class SwallowQLearner (object):
 # metodo global de aprendizaje
 
 if __name__ == "__main__":
-    environment = gym.make("LunarLander-v2")
-    #environment = gym.make("CartPole-v0")
-    #environment = gym.make("MountainCar-v0")
-   ## environment = gym.make("BipedalWalker-v2")
-    #environment = gym.make("Acrobot-v1")
-    agent = SwallowQLearner(environment)
+    env = gym.make("LunarLander-v2")
+    #env = gym.make("CartPole-v0")
+    #env = gym.make("MountainCar-v0")
+   ## env = gym.make("BipedalWalker-v2")
+    #env = gym.make("Acrobot-v1")
+    agent = SwallowQLearner(env)
     first_episode = True
     episode_rewards = list()
     max_reward = float("-inf")
     for episode in range(MAX_NUM_EPISODE):
-        obs = environment.reset() # primera observacion
+        obs = env.reset() # primera observacion
         total_reward = 0.0
         for step in range(STEPS_PER_EPISODE):
-            environment.render() # para verlo visual
+            env.render() # para verlo visual
             action = agent.get_action(obs)
             # extraigo los valores
-            next_obs, reward, done, info = environment.step(action)
+            next_obs, reward, done, info = env.step(action)
 
             #almaceno en memoria todos los datos de la observacion 
             agent.memory.store(Experience(obs, action, reward, next_obs, done)) 
@@ -199,7 +199,7 @@ if __name__ == "__main__":
 
 #ctrls+ALTT+c
             # if done:
-            #     environment.reset()
+            #     env.reset()
             #     if first_episode:
             #         max_reward = total_reward
             #         first_episode = False
@@ -219,4 +219,4 @@ if __name__ == "__main__":
                 if agent.memory.get_size() > 100:
                     agent.replay_experience(batch_size)
                     break
-    environment.close()
+    env.close()

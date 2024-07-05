@@ -204,7 +204,7 @@ class ApproximateQLearningTest(testClasses.TestCase):
         if 'noise' in testDict: self.grid.setNoise(float(testDict['noise']))
         if 'livingReward' in testDict: self.grid.setLivingReward(float(testDict['livingReward']))
         self.grid = gridworld.Gridworld(parseGrid(testDict['grid']))
-        self.env = gridworld.GridworldEnvironment(self.grid)
+        self.env = gridworld.Gridworldenv(self.grid)
         self.epsilon = float(testDict['epsilon'])
         self.learningRate = float(testDict['learningRate'])
         self.extractor = 'IdentityExtractor'
@@ -367,7 +367,7 @@ class QLearningTest(testClasses.TestCase):
         if 'noise' in testDict: self.grid.setNoise(float(testDict['noise']))
         if 'livingReward' in testDict: self.grid.setLivingReward(float(testDict['livingReward']))
         self.grid = gridworld.Gridworld(parseGrid(testDict['grid']))
-        self.env = gridworld.GridworldEnvironment(self.grid)
+        self.env = gridworld.Gridworldenv(self.grid)
         self.epsilon = float(testDict['epsilon'])
         self.learningRate = float(testDict['learningRate'])
         self.opts = {'actionFn': self.env.getPossibleActions, 'epsilon': self.epsilon, 'gamma': self.discount, 'alpha': self.learningRate}
@@ -548,7 +548,7 @@ class EpsilonGreedyTest(testClasses.TestCase):
         if 'livingReward' in testDict: self.grid.setLivingReward(float(testDict['livingReward']))
 
         self.grid = gridworld.Gridworld(parseGrid(testDict['grid']))
-        self.env = gridworld.GridworldEnvironment(self.grid)
+        self.env = gridworld.Gridworldenv(self.grid)
         self.epsilon = float(testDict['epsilon'])
         self.learningRate = float(testDict['learningRate'])
         self.numExperiences = int(testDict['numExperiences'])

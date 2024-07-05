@@ -16,10 +16,10 @@
 import math
 from math import pi as PI
 import time
-import environment
+import env
 import random
 
-class CrawlingRobotEnvironment(environment.Environment):
+class CrawlingRobotenv(env.env):
 
     def __init__(self, crawlingRobot):
 
@@ -74,7 +74,7 @@ class CrawlingRobotEnvironment(environment.Environment):
     def doAction(self, action):
         """
           Perform the action and update
-          the current state of the Environment
+          the current state of the env
           and return the reward for the
           current state, the next state
           and the taken action.
@@ -116,7 +116,7 @@ class CrawlingRobotEnvironment(environment.Environment):
 
     def reset(self):
         """
-         Resets the Environment to the initial state
+         Resets the env to the initial state
         """
         ## Initialize the state to be the middle
         ## value for each parameter e.g. if there are 13 and 19

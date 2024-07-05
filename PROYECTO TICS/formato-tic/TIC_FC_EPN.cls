@@ -197,7 +197,7 @@
 
 % ========== Resumen
 
-\newenvironment{resumen}{
+\newenv{resumen}{
     \vspace*{\stretch{1}}
     \begin{center}
         \textbf{RESUMEN}
@@ -211,7 +211,7 @@
 
 % ========== Abstract
 
-\newenvironment{resumenEng}{
+\newenv{resumenEng}{
     \vspace*{\stretch{1}}
     \begin{center}
         \textbf{ABSTRACT}

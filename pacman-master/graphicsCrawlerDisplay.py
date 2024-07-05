@@ -166,22 +166,22 @@ class Application:
 
         self.__initGUI(win)
 
-        # Init environment
+        # Init env
         if robotType == 'crawler':
             self.robot = crawler.CrawlingRobot(self.canvas)
-            self.robotEnvironment = crawler.CrawlingRobotEnvironment(self.robot)
+            self.robotenv = crawler.CrawlingRobotenv(self.robot)
         elif robotType == 'pendulum':
             self.robot = pendulum.PendulumRobot(self.canvas)
-            self.robotEnvironment = \
-                pendulum.PendulumRobotEnvironment(self.robot)
+            self.robotenv = \
+                pendulum.PendulumRobotenv(self.robot)
         else:
             raise "Unknown RobotType"
 
         # Init Agent
         simulationFn = lambda agent: \
-          simulation.SimulationEnvironment(self.robotEnvironment,agent)
+          simulation.Simulationenv(self.robotenv,agent)
         actionFn = lambda state: \
-          self.robotEnvironment.getPossibleActions(state)
+          self.robotenv.getPossibleActions(state)
         self.learner = qlearningAgents.QLearningAgent(actionFn=actionFn)
 
         self.learner.setEpsilon(self.epsilon)
@@ -211,17 +211,17 @@ class Application:
 
         self.stepCount += 1
 
-        state = self.robotEnvironment.getCurrentState()
-        actions = self.robotEnvironment.getPossibleActions(state)
+        state = self.robotenv.getCurrentState()
+        actions = self.robotenv.getPossibleActions(state)
         if len(actions) == 0.0:
-            self.robotEnvironment.reset()
-            state = self.robotEnvironment.getCurrentState()
-            actions = self.robotEnvironment.getPossibleActions(state)
+            self.robotenv.reset()
+            state = self.robotenv.getCurrentState()
+            actions = self.robotenv.getPossibleActions(state)
             print 'Reset!'
         action = self.learner.getAction(state)
         if action == None:
             raise 'None action returned: Code Not Complete'
-        nextState, reward = self.robotEnvironment.doAction(action)
+        nextState, reward = self.robotenv.doAction(action)
         self.learner.observeTransition(state, action, nextState, reward)
 
     def animatePolicy(self):
@@ -261,7 +261,7 @@ class Application:
 
             for j in range(100):
                 vel = velMin + j * velDelta
-                state = self.robotEnvironment.getState(angle,vel)
+                state = self.robotenv.getState(angle,vel)
                 max, argMax = None, None
                 if not self.learner.seenState(state):
                     argMax = 'unseen'

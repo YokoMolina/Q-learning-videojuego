@@ -15,7 +15,7 @@
 import random
 import sys
 import mdp
-import environment
+import env
 import util
 import optparse
 
@@ -176,7 +176,7 @@ class Gridworld(mdp.MarkovDecisionProcess):
         if x < 0 or x >= self.grid.width: return False
         return self.grid[x][y] != '#'
 
-class GridworldEnvironment(environment.Environment):
+class Gridworldenv(env.env):
 
     def __init__(self, gridWorld):
         self.gridWorld = gridWorld
@@ -337,21 +337,21 @@ def getUserAction(state, actionFunction):
 
 def printString(x): print x
 
-def runEpisode(agent, environment, discount, decision, display, message, pause, episode):
+def runEpisode(agent, env, discount, decision, display, message, pause, episode):
     returns = 0
     totalDiscount = 1.0
-    environment.reset()
+    env.reset()
     if 'startEpisode' in dir(agent): agent.startEpisode()
     message("BEGINNING EPISODE: "+str(episode)+"\n")
     while True:
 
         # DISPLAY CURRENT STATE
-        state = environment.getCurrentState()
+        state = env.getCurrentState()
         display(state)
         pause()
 
         # END IF IN A TERMINAL STATE
-        actions = environment.getPossibleActions(state)
+        actions = env.getPossibleActions(state)
         if len(actions) == 0:
             message("EPISODE "+str(episode)+" COMPLETE: RETURN WAS "+str(returns)+"\n")
             return returns
@@ -362,7 +362,7 @@ def runEpisode(agent, environment, discount, decision, display, message, pause, 
             raise 'Error: Agent returned None action'
 
         # EXECUTE ACTION
-        nextState, reward = environment.doAction(action)
+        nextState, reward = env.doAction(action)
         message("Started in state: "+str(state)+
                 "\nTook action: "+str(action)+
                 "\nEnded in state: "+str(nextState)+
@@ -458,7 +458,7 @@ if __name__ == '__main__':
     mdp = mdpFunction()
     mdp.setLivingReward(opts.livingReward)
     mdp.setNoise(opts.noise)
-    env = gridworld.GridworldEnvironment(mdp)
+    env = gridworld.Gridworldenv(mdp)
 
 
     ###########################
@@ -486,7 +486,7 @@ if __name__ == '__main__':
     elif opts.agent == 'q':
         #env.getPossibleActions, opts.discount, opts.learningRate, opts.epsilon
         #simulationFn = lambda agent, state: simulation.GridworldSimulation(agent,state,mdp)
-        gridWorldEnv = GridworldEnvironment(mdp)
+        gridWorldEnv = Gridworldenv(mdp)
         actionFn = lambda state: mdp.getPossibleActions(state)
         qLearnOpts = {'gamma': opts.discount,
                       'alpha': opts.learningRate,
