@@ -77,7 +77,7 @@ class NormalizedEnv(gym.ObservationWrapper): # vamos a normalizar los datos para
     
     def observation(self, observation):
         self.num_steps += 1
-        # voy a hacer los valores insesgados
+        # voy a ponderar los valores para que se de mas peso a lo valores recientes 
         self.mean = self.mean * self.alpha + observation.mean() * (1-self.alpha)
         self.std = self.std *self.alpha + observation.std() * (1-self.alpha)
         # aqui ya los hago insesgados cosntruyendo un estadistico insesgado desde el sesgado

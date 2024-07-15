@@ -351,7 +351,7 @@ if __name__ == "__main__":
                     num_improved_episodes_before_checkpoint = 0
                 print("\n Episodio #{} finalizado con {} iteraciones. Con {} estados: recompensa = {}, recompensa media = {:.2}, mejor recompensa = {}".format(episode, step+1, reward_type, total_reward, np.mean(episode_rewards), agent.best_reward))
 
-                writer.add_scalar("main/ep_total_reward", total_reward, global_step_num)
+                writer.add_scalar("main/ep_reward", total_reward, global_step_num)
                 writer.add_scalar("main/mean_ep_reward", np.mean(episode_rewards), global_step_num)
                 writer.add_scalar("main/max_ep_reward", agent.best_mean_reward, global_step_num)
                 #writer.add_scalar("main/total_reward", agent.best_mean_reward, global_step_num)
