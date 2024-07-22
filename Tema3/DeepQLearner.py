@@ -58,6 +58,7 @@ args = args.parse_args()
 # Parametrso globales
 #manager = ParamsManager("parameters.json")
 manager = ParamsManager(args.params_file)
+#agent_params["test"] = args.test
 #ficheros de la configuracion de las ejecuciones
 summary_filename_prefix = manager.get_agent_params()["summary_filename_prefix"]
 summary_filename = summary_filename_prefix + args.env + datetime.now().strftime("%y-%m-%d-%H-%M")
@@ -145,11 +146,11 @@ class DeepQLearner (object): # ya nos le vamos a pasar el environment
     # DEAIMIENTO DEL EPSILON IMPLEMENTADA EN UNA FUNCION 
     def epsilon_greedy_Q(self, obs):
         writer.add_scalar("DQL/epsilon", self.epsilon_decay(self.step_num), self.step_num)
-        self.step_num += 1 # el parametro test sera por consola y lo que hara el agentr es saltarse el modo cuando aleatorio del aprendizaje (acciones aleatorias)
-        if random.random() < self.epsilon_decay(self.step_num) and not self.params["test"]: # funcion de decrecimiento que le paso el numero de iteracion
+        self.step_num +=1
+        if random.random() < self.epsilon_decay(self.step_num) and not self.params["test"]:
             action = random.choice([a for a in range(self.action_shape)])
         else:
-            action = np.argmax(self.Q(obs).data.to(torch.device("cpu")).numpy())
+            action = np.argmax(self.Q(obs).data.to(torch.device('cpu')).numpy())   
         return action
 
     def learn(self, obs, action, reward, next_obs, done): # funcion original de aprendizaje 
@@ -295,10 +296,13 @@ if __name__ == "__main__":
             atari_env = True
     if atari_env:
         environment = Atari.make_env(args.env, env_conf)
+        monitor_path = "./monitor_output"
+        environment = gym.wrappers.Monitor(environment, monitor_path, force = True)
+    
     else:
         environment = env_utils.ResizeReshapeFrames(gym.make(args.env))
 
-
+    
     obs_shape = environment.observation_space.shape
     action_shape =environment.action_space.n
     agent_params = manager.get_agent_params()
@@ -318,6 +322,7 @@ if __name__ == "__main__":
             print("ERROR: no existe ningun modelo entrenado para este entorno. Empezamos desde cero")
 
     episode = 0
+    global_step_num = 0
     while global_step_num < agent_params["max_training_steps"]:
         obs = environment.reset()
         total_reward = 0.0
@@ -349,7 +354,7 @@ if __name__ == "__main__":
                     agent.best_mean_reward = np.mean(episode_rewards)
                     agent.save(env_conf["env_name"])
                     num_improved_episodes_before_checkpoint = 0
-                print("\n Episodio #{} finalizado con {} iteraciones. Con {} estados: recompensa = {}, recompensa media = {:.2}, mejor recompensa = {}".format(episode, step+1, reward_type, total_reward, np.mean(episode_rewards), agent.best_reward))
+                print("\n Episodio #{} finalizado con {} iteraciones. Con {} estados: recompensa = {}, recompensa media = {:.2}, mejor recompensa = {}, accion = {}".format(episode, step+1, reward_type, total_reward, np.mean(episode_rewards), agent.best_reward, action))
 
                 writer.add_scalar("main/ep_reward", total_reward, global_step_num)
                 writer.add_scalar("main/mean_ep_reward", np.mean(episode_rewards), global_step_num)
@@ -359,6 +364,8 @@ if __name__ == "__main__":
                 if agent.memory.get_size() >= 2*agent.params["replay_start_size"] and not args.test:
                     agent.replay_experience()
                 break
+            
+    
 
     environment.close()
     writer.close()
