@@ -34,6 +34,8 @@ import environments.utils as env_utils
 from tensorboardX import SummaryWriter # nos ayuda a guardar los valores de entrenamiento y poder analizarlos
 
 
+import tensorflow as tf
+
 # PongNoFrameskip-v4
 
 # parseador de Argumentos
@@ -355,6 +357,7 @@ if __name__ == "__main__":
                     agent.save(env_conf["env_name"])
                     num_improved_episodes_before_checkpoint = 0
                 print("\n Episodio #{} finalizado con {} iteraciones. Con {} estados: recompensa = {}, recompensa media = {:.2}, mejor recompensa = {}, accion = {}".format(episode, step+1, reward_type, total_reward, np.mean(episode_rewards), agent.best_reward, action))
+                #print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 
                 writer.add_scalar("main/ep_reward", total_reward, global_step_num)
                 writer.add_scalar("main/mean_ep_reward", np.mean(episode_rewards), global_step_num)

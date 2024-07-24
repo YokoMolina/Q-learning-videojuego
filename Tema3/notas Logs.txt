@@ -1,0 +1,9 @@
+pacman 31 tiene modificacion del ratio de aprendizaje a 0.008
+
+el de abajo es el game play (36)
+
+pacman 42 y 54 tiene un cambio de gamma 0.96
+
+Asteroids 01 tiene el learning rate cambiado entrenamiento
+
+Asteroid 38 tiene el gambio de gamma entrenamiento

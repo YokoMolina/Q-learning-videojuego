@@ -11,7 +11,7 @@ import gym
 from gym.spaces import Box
 from utils.experience_memory import ExperienceMemory, Experience
 
-MAX_NUM_EPISODE = 50
+MAX_NUM_EPISODE = 1000
 STEPS_PER_EPISODE = 30
 
 
@@ -162,8 +162,8 @@ class SwallowQLearner (object):
 # metodo global de aprendizaje
 
 if __name__ == "__main__":
-    env = gym.make("LunarLander-v2")
-    #env = gym.make("CartPole-v0")
+    #env = gym.make("LunarLander-v2")
+    env = gym.make("CartPole-v0")
     #env = gym.make("MountainCar-v0")
    ## env = gym.make("BipedalWalker-v2")
     #env = gym.make("Acrobot-v1")

@@ -15,7 +15,7 @@ Experience = namedtuple("Experience", ["obs","action","reward","next_obs", "done
 class ExperienceMemory(object):
     # vamos a reproducir las experiencias , es decir, recuperarlas 
     # ESTO SERÁ UN BUFFER QUE SIMULA LA MEMORIA DEL AGENTE
-    def __init__(self, capacity = int(1e6)):
+    def __init__(self, capacity = int(1e7)):
         # :parame capacity es la capacidad total de mempria ciclica elimina memoria inicial que no sirve
         # numero max de experiencias almacenables 
         self.capacity = capacity
